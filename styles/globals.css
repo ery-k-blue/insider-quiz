@@ -6,11 +6,14 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+button {
+  padding: 0.5rem 4rem;
+  font-size: large;
+  align-content: center;
 }
 
-* {
-  box-sizing: border-box;
+.div-center-align {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem;
 }
