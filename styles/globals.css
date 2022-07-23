@@ -17,3 +17,19 @@ button {
   justify-content: center;
   margin: 0.5rem;
 }
+
+.player-area {
+  display: flex;
+  text-align: center;
+}
+
+.p-area {
+  background-color: #5998c5;
+  height: 20rem;
+  flex-grow: 1;
+}
+
+.q-area {
+  background-color: #ff5400;
+  flex-grow: 1;
+}

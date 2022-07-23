@@ -9,6 +9,8 @@ import { ResultScene } from "../scenes/Result";
 const Home: NextPage = () => {
   // Sceneを持たせる
   const [scene, setScene] = useState("start");
+  const [pPoint, setPPoint] = useState(0);
+  const [qPoint, setQPoint] = useState(0);
 
   return (
     <div className={styles.container}>
@@ -18,7 +20,15 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         {scene === "start" && <StartScene setScene={setScene} />}
-        {scene === "game" && <GameScene setScene={setScene} />}
+        {scene === "game" && (
+          <GameScene
+            setScene={setScene}
+            pPoint={pPoint}
+            qPoint={qPoint}
+            setPPoint={setPPoint}
+            setQPoint={setQPoint}
+          />
+        )}
         {scene === "result" && <ResultScene setScene={setScene} />}
       </main>
     </div>

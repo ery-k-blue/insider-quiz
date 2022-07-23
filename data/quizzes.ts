@@ -19,6 +19,6 @@ export const quizzes: Array<Quiz> = [
   {
     id: 3,
     question: "10円玉のおつりは一回の会計で最大何枚もらえるでしょうか？",
-    answer: "4枚",
+    answer: "4",
   },
 ];
