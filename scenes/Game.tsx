@@ -26,7 +26,7 @@ export const GameScene: React.FC<GameSceneProps> = ({
   const [quizList, setQuizList] = useState<Quiz[]>([]);
   const [righrToAnswer, setRightToAnswer] = useState<string>("");
   const [rTAflag, setRTAflag] = useState<Boolean>(true);
-  const questinoNum = 6;
+  const questinoNum = 3;
 
   const randomNumber = (max: number) => {
     return Math.floor(Math.random() * max);
@@ -89,10 +89,11 @@ export const GameScene: React.FC<GameSceneProps> = ({
   useEffect(() => {
     if (quizProgress === questinoNum + 1) {
       setScene("result");
-    }
-    if (quizProgress > 1) {
-      setQuestion(quizList[quizProgress - 1]["question"]);
-      setAnswer(quizList[quizProgress - 1]["answer"]);
+    } else {
+      if (quizProgress > 1) {
+        setQuestion(quizList[quizProgress - 1]["question"]);
+        setAnswer(quizList[quizProgress - 1]["answer"]);
+      }
     }
   }, [quizProgress]);
 
