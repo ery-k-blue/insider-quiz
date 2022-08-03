@@ -19,17 +19,25 @@ export const GameScene: React.FC<GameSceneProps> = ({
   setPPoint,
   setQPoint,
 }) => {
+  const questinoNum = 3;
+  const [quizList, setQuizList] = useState<Quiz[]>([]);
   const [quizProgress, setQuizProgress] = useState<number>(1);
-  const [inputAnswer, setInputAnswer] = useState<string>("");
+
   const [inputCheck, setinputCheck] = useState<string>("");
+  const [seikaiflag, setSeikaiflag] = useState<Boolean>(false);
+
   const [question, setQuestion] = useState<string>("");
   const [answer, setAnswer] = useState<string>("");
-  const [answerArray, setAnswerArray] = useState<any[]>([]);
-  const [quizList, setQuizList] = useState<Quiz[]>([]);
+  const [choicesArray, setChoicesArray] = useState<any[]>([]);
+
+  const [inputAnswer, setInputAnswer] = useState<string>("");
+  const [inputCharCount, setInputCharCount] = useState<number>(0);
+
   const [righrToAnswer, setRightToAnswer] = useState<string>("");
   const [rTAflag, setRTAflag] = useState<Boolean>(true);
-  const [inputCharCount, setInputCharCount] = useState<number>(0);
-  const questinoNum = 3;
+
+  const [startAnimation, setStartAnimation] = useState<Boolean>(true);
+  const [pauseAnimation, setPauseAnimation] = useState<Boolean>(false);
 
   const setQuizeez = () => {
     const max = quizzes.length;
@@ -40,65 +48,74 @@ export const GameScene: React.FC<GameSceneProps> = ({
     setQuizList(_ql);
   };
 
-  // const onchangeText = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setInputAnswer(e.target.value);
-  // };
-
-  const submitAnswer = () => {
-    console.log(inputAnswer);
-    console.log(answer);
-    if (inputAnswer == answer) {
-      setQuizProgress((count) => count + 1);
-      setinputCheck("");
-      if (righrToAnswer === "Q") {
-        setQPoint(qPoint + 1);
-      } else if (righrToAnswer === "P") {
-        setPPoint(pPoint + 1);
-      }
-    } else {
-      setinputCheck("違うよ！");
-    }
-    setInputAnswer("");
-    setRTAflag(true);
-    setRightToAnswer("");
-  };
-
   const makeChoices = (answer: any) => {
     let _arr = answer.split("");
-    let choicesArray = [];
+    let _carr = [];
     console.log(answer);
     console.log(_arr);
 
     for (let i = 0; i < answer.length; i++) {
-      choicesArray.push(randomChar(_arr[i]));
+      _carr.push(randomChar(_arr[i]));
     }
-    setAnswerArray(choicesArray);
+    setChoicesArray(_carr);
   };
 
   const selectedChoices = (e: MouseEvent<HTMLElement>) => {
-    console.log(e);
-    console.log(e.target);
-    let _answer = inputAnswer + e.target.value;
-    console.log(_answer);
-    setInputAnswer(_answer);
-
-    console.log("______");
-    console.log(answerArray.length);
-    console.log(inputCharCount);
-    if (inputCharCount < answerArray.length - 1) {
+    if (e.target.value === answer[inputCharCount]) {
+      let _answer = inputAnswer + e.target.value;
+      setInputAnswer(_answer);
       setInputCharCount((c) => c + 1);
+      // 答えと入力が完全一致したら
+      if (_answer === answer) {
+        seikaiProcess();
+      }
     } else {
-      setInputCharCount(0);
+      huseikaiProcess();
     }
+  };
+
+  const seikaiProcess = () => {
+    if (righrToAnswer === "Q") {
+      setQPoint(qPoint + 1);
+    } else if (righrToAnswer === "P") {
+      setPPoint(pPoint + 1);
+    }
+
+    setSeikaiflag(true);
+    setPauseAnimation(false);
+    setStartAnimation(false);
+    setRightToAnswer("");
+    setTimeout(() => {
+      setSeikaiflag(false);
+      setQuizProgress((count) => count + 1);
+      setInputAnswer("");
+      setInputCharCount(0);
+      setRTAflag(true);
+      setinputCheck("");
+      setStartAnimation(true);
+    }, 2000);
+  };
+
+  const huseikaiProcess = () => {
+    setRightToAnswer("");
+    setInputAnswer("");
+    setInputCharCount(0);
+    setPauseAnimation(false);
+    setRTAflag(true);
+    setinputCheck("違うよ！");
   };
 
   const keydownEvent = (e: KeyboardEvent) => {
     if (e.key === "q") {
       setRightToAnswer("Q");
       setRTAflag(false);
+      setPauseAnimation(true);
+      setinputCheck("");
     } else if (e.key === "p") {
       setRightToAnswer("P");
       setRTAflag(false);
+      setPauseAnimation(true);
+      setinputCheck("");
     }
   };
 
@@ -119,6 +136,7 @@ export const GameScene: React.FC<GameSceneProps> = ({
       setScene("result");
     } else {
       if (quizProgress > 1) {
+        console.log(quizProgress - 1);
         setQuestion(quizList[quizProgress - 1]["question"]);
         setAnswer(quizList[quizProgress - 1]["answer"]);
       }
@@ -146,64 +164,50 @@ export const GameScene: React.FC<GameSceneProps> = ({
         quizProgress={quizProgress}
         question={question}
         inputCheck={inputCheck}
+        startAnimation={startAnimation}
+        pauseAnimation={pauseAnimation}
       />
       <div className="div-center-align">
         <h2>{inputAnswer}</h2>
       </div>
 
+      {seikaiflag && (
+        <div>
+          <h1>seikai!!!!!</h1>
+        </div>
+      )}
+
       {righrToAnswer && (
         <div className="div-center-align">
           <button
             onClick={selectedChoices}
-            value={answerArray[inputCharCount][0]}
+            value={choicesArray[inputCharCount][0]}
           >
-            {answerArray[inputCharCount][0]}
+            {choicesArray[inputCharCount][0]}
           </button>
           <button
             onClick={selectedChoices}
-            value={answerArray[inputCharCount][1]}
+            value={choicesArray[inputCharCount][1]}
           >
-            {answerArray[inputCharCount][1]}
+            {choicesArray[inputCharCount][1]}
           </button>
           <button
             onClick={selectedChoices}
-            value={answerArray[inputCharCount][2]}
+            value={choicesArray[inputCharCount][2]}
           >
-            {answerArray[inputCharCount][2]}
+            {choicesArray[inputCharCount][2]}
           </button>
           <button
             onClick={selectedChoices}
-            value={answerArray[inputCharCount][3]}
+            value={choicesArray[inputCharCount][3]}
           >
-            {answerArray[inputCharCount][3]}
+            {choicesArray[inputCharCount][3]}
           </button>
         </div>
       )}
 
-      <div className="div-center-align">
-        {(() => {
-          if (righrToAnswer == "Q") {
-            return (
-              <button
-                onClick={submitAnswer}
-                style={{ backgroundColor: "#FF5400" }}
-              >
-                submit
-              </button>
-            );
-          } else if (righrToAnswer === "P") {
-            return (
-              <button
-                onClick={submitAnswer}
-                style={{ backgroundColor: "#5998C5" }}
-              >
-                submit
-              </button>
-            );
-          } else {
-            return <button onClick={submitAnswer}>submit</button>;
-          }
-        })()}
+      <div>
+        <h1>{righrToAnswer}</h1>
       </div>
 
       <PlayerArea qPoint={qPoint} pPoint={pPoint} />
@@ -211,9 +215,6 @@ export const GameScene: React.FC<GameSceneProps> = ({
       <div className="div-center-align">
         <button onClick={() => setScene("result")}>finish</button>
       </div>
-      {/* <div className="div-center-align">
-        <button onClick={makeChoices}>ooo</button>
-      </div> */}
     </div>
   );
 };

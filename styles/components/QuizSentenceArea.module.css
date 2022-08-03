@@ -1,0 +1,28 @@
+.questionSentence {
+  font-size: 1.5em;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.animation {
+  width: 0;
+  font-size: 1.5em;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: flowing-anim 10s forwards linear;
+}
+
+.pauseanimation {
+  animation-play-state: paused;
+}
+
+@keyframes flowing-anim {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
