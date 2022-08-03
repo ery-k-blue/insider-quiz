@@ -1,17 +1,36 @@
 .questionSentence {
-  font-size: 1.5em;
+  font-size: 24px;
   font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
 }
 
 .animation {
   width: 0;
-  font-size: 1.5em;
+  font-size: 24px;
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
-  animation: flowing-anim 10s forwards linear;
+  animation: flowing-anim 5s forwards linear;
+}
+
+/* <HACK>そもそもをどうにかしたい */
+/* なぜかnth-child(2)から始まる */
+/* .animation:nth-child(2) {
+} */
+
+.animation:nth-child(3) {
+  animation-delay: 5s;
+}
+
+.animation:nth-child(4) {
+  animation-delay: 10s;
+}
+
+.animation:nth-child(5) {
+  animation-delay: 15s;
+}
+
+.animation:nth-child(6) {
+  animation-delay: 20s;
 }
 
 .pauseanimation {

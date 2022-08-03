@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../styles/components/QuizSentenceArea.module.css";
+import { QuizSentenceBlock } from "./QuizSentenceProps";
 
 type QuizSentenceAreaProps = {
   quizProgress: number;
@@ -16,18 +17,35 @@ export const QuizSentenceArea: React.FC<QuizSentenceAreaProps> = ({
   startAnimation,
   pauseAnimation,
 }) => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth - 64);
+  const [sentenceArray, setSentenceArray] = useState<string[]>([]);
+
+  useEffect(() => {
+    const onResize = () => {
+      setWindowWidth(() => window.innerWidth - 64);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    var columnsCharNum = Math.floor(windowWidth / 24);
+    var chunk = question.match(new RegExp(".{1," + columnsCharNum + "}", "g"));
+    console.log(columnsCharNum);
+    console.log(windowWidth);
+    if (chunk) {
+      setSentenceArray(chunk);
+    }
+  }, [question]);
+
   return (
     <div>
       <h3>Q{quizProgress}.</h3>
       {startAnimation ? (
-        <h3
-          id="animationQuestionSentence"
-          className={`${styles.animation} + ${
-            pauseAnimation ? styles.pauseanimation : ""
-          }`}
-        >
-          {question}
-        </h3>
+        <QuizSentenceBlock
+          sentenceArray={sentenceArray}
+          pauseAnimation={pauseAnimation}
+        />
       ) : (
         <h3 className={styles.questionSentence}>{question}</h3>
       )}
@@ -35,28 +53,3 @@ export const QuizSentenceArea: React.FC<QuizSentenceAreaProps> = ({
     </div>
   );
 };
-
-// jsそのものを使う方法
-// https://web-designer.cman.jp/css_ref/abc_list/animation-play-state/
-// https://tech-blog.cloud-config.jp/2021-06-01-react-making-slotmachine/
-
-// {animation ? (
-//   <h3
-//     id="animationQuestionSentence"
-//     className={styles.animation + (rTAflag ? "" : styles.pauseAnimation)}
-//   >
-//     {question}
-//   </h3>
-// ) : (
-//   <h3 className={styles.questionSentence}>{question}</h3>
-// )}
-
-{
-  /* <h3
-className={`${styles.animation} ${
-  animation ? "" : styles.pauseanimation
-}`}
->
-{question}
-</h3> */
-}

@@ -7,8 +7,9 @@ export type Quiz = {
 export const quizzes: Array<Quiz> = [
   {
     id: 1,
-    question: "1 + 1は？",
-    answer: "22",
+    question:
+      "日本の県名で漢数字が入っている県が２つあります。１つは三重県。ではもう１つは？",
+    answer: "ちば",
   },
   {
     id: 2,
