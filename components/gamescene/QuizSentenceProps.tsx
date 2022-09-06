@@ -1,4 +1,4 @@
-import styles from "../../styles/components/QuizSentenceArea.module.css";
+import styles from "../../styles/components/gamescene/QuizSentenceArea.module.css";
 
 type QuizSentenceProps = {
   sentenceArray: string[];

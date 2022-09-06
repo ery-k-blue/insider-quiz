@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "../../styles/components/QuizSentenceArea.module.css";
+import styles from "../../styles/components/gamescene/QuizSentenceArea.module.css";
 import { QuizSentenceBlock } from "./QuizSentenceProps";
 
 type QuizSentenceAreaProps = {

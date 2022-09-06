@@ -1,4 +1,10 @@
-import React, { MouseEvent, ChangeEvent, useEffect, useState } from "react";
+import React, {
+  MouseEvent,
+  MouseEventHandler,
+  ChangeEvent,
+  useEffect,
+  useState,
+} from "react";
 import { quizzes, Quiz } from "../data/quizzes";
 import { PlayerArea } from "../components/gamescene/PlayerArea";
 import { QuizSentenceArea } from "../components/gamescene/QuizSentenceArea";
@@ -60,9 +66,9 @@ export const GameScene: React.FC<GameSceneProps> = ({
     setChoicesArray(_carr);
   };
 
-  const selectedChoices = (e: MouseEvent<HTMLElement>) => {
-    if (e.target.value === answer[inputCharCount]) {
-      let _answer = inputAnswer + e.target.value;
+  const selectedChoices = (e: MouseEvent<HTMLButtonElement>) => {
+    if (e.currentTarget.value === answer[inputCharCount]) {
+      let _answer = inputAnswer + e.currentTarget.value;
       setInputAnswer(_answer);
       setInputCharCount((c) => c + 1);
       // 答えと入力が完全一致したら
@@ -168,7 +174,7 @@ export const GameScene: React.FC<GameSceneProps> = ({
         pauseAnimation={pauseAnimation}
       />
       <div className="div-center-align">
-        <h2>{inputAnswer}</h2>
+        <p style={{ fontSize: 80, margin: 0 }}>{inputAnswer}</p>
       </div>
 
       {seikaiflag && (
