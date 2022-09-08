@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/components/gamescene/QuizSentenceArea.module.css";
-import { QuizSentenceBlock } from "./QuizSentenceProps";
+import { QuizSentenceBlock } from "./QuizSentenceBlock";
 
 type QuizSentenceAreaProps = {
   quizProgress: number;

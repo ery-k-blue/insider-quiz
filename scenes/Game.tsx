@@ -1,11 +1,12 @@
 import React, { MouseEvent, useEffect, useState } from "react";
-import { quizzes, Quiz } from "../data/quizzes";
 import { PlayerArea } from "../components/gamescene/PlayerArea";
 import { QuizSentenceArea } from "../components/gamescene/QuizSentenceArea";
 import { randomChar } from "../components/gamescene/CharTool";
+import { Quiz } from "../data/quizzes";
 
 export type GameSceneProps = {
   setScene: (scene: string) => void;
+  quizList: Array<Quiz>;
   pPoint: number;
   qPoint: number;
   setPPoint: (pPoint: number) => void;
@@ -14,13 +15,13 @@ export type GameSceneProps = {
 
 export const GameScene: React.FC<GameSceneProps> = ({
   setScene,
+  quizList,
   pPoint,
   qPoint,
   setPPoint,
   setQPoint,
 }) => {
   const questinoNum = 3;
-  const [quizList, setQuizList] = useState<Quiz[]>([]);
   const [quizProgress, setQuizProgress] = useState<number>(1);
 
   const [inputCheck, setinputCheck] = useState<string>("");
@@ -38,15 +39,6 @@ export const GameScene: React.FC<GameSceneProps> = ({
 
   const [startAnimation, setStartAnimation] = useState<Boolean>(true);
   const [pauseAnimation, setPauseAnimation] = useState<Boolean>(false);
-
-  const setQuizeez = () => {
-    const max = quizzes.length;
-    let _ql: Array<Quiz> = [];
-    for (let i = 0; i < questinoNum; i++) {
-      _ql.push(quizzes[Math.floor(Math.random() * max)]);
-    }
-    setQuizList(_ql);
-  };
 
   const makeChoices = (answer: any) => {
     let _arr = answer.split("");
@@ -118,10 +110,6 @@ export const GameScene: React.FC<GameSceneProps> = ({
       setinputCheck("");
     }
   };
-
-  useEffect(() => {
-    setQuizeez();
-  }, []);
 
   useEffect(() => {
     if (quizList.length !== 0) {

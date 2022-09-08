@@ -1,27 +1,16 @@
 import React, { useState } from "react";
-import styles from "../styles/components/insiderscene/PopupArea.module.css";
+import { PopupArea } from "../components/insiderscene/PopupArea";
+import { Quiz } from "../data/quizzes";
 
 export type InsiderSceneProps = {
   setScene: (scene: string) => void;
+  quizList: Array<Quiz>;
 };
 
-type PopupAreaProps = {
-  showPopup: string;
-  setShowPopup: (s: string) => void;
-};
-
-const PopupArea: React.FC<PopupAreaProps> = ({ showPopup, setShowPopup }) => {
-  return (
-    <div id={styles.overlay}>
-      <div id={styles.content}>
-        <p>{showPopup}いんさいだー</p>
-        <button onClick={() => setShowPopup("")}>close</button>
-      </div>
-    </div>
-  );
-};
-
-export const InsiderScene: React.FC<InsiderSceneProps> = ({ setScene }) => {
+export const InsiderScene: React.FC<InsiderSceneProps> = ({
+  setScene,
+  quizList,
+}) => {
   const [showPopup, setShowPopup] = useState("");
   return (
     <div>
