@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useState } from "react";
 import styles from "../styles/Home.module.css";
 import { StartScene } from "../scenes/Start";
+import { InsiderScene } from "../scenes/Insider";
 import { GameScene } from "../scenes/Game";
 import { ResultScene } from "../scenes/Result";
 
@@ -20,6 +21,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         {scene === "start" && <StartScene setScene={setScene} />}
+        {scene === "insider" && <InsiderScene setScene={setScene} />}
         {scene === "game" && (
           <GameScene
             setScene={setScene}

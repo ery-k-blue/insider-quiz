@@ -7,7 +7,7 @@ export const StartScene: React.FC<StartSceneProps> = ({ setScene }) => {
     <div>
       <h1>Insider Quiz</h1>
       <div className="div-center-align">
-        <button onClick={() => setScene("game")}>start</button>
+        <button onClick={() => setScene("insider")}>start</button>
       </div>
     </div>
   );

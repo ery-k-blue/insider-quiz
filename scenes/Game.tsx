@@ -1,10 +1,4 @@
-import React, {
-  MouseEvent,
-  MouseEventHandler,
-  ChangeEvent,
-  useEffect,
-  useState,
-} from "react";
+import React, { MouseEvent, useEffect, useState } from "react";
 import { quizzes, Quiz } from "../data/quizzes";
 import { PlayerArea } from "../components/gamescene/PlayerArea";
 import { QuizSentenceArea } from "../components/gamescene/QuizSentenceArea";
