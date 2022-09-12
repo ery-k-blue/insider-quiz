@@ -1,8 +1,4 @@
-export type Quiz = {
-  id: number;
-  question: string;
-  answer: string;
-};
+import { Quiz } from "../components/type/Type";
 
 export const quizzes: Array<Quiz> = [
   {

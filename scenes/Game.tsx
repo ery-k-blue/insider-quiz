@@ -2,7 +2,7 @@ import React, { MouseEvent, useEffect, useState } from "react";
 import { PlayerArea } from "../components/gamescene/PlayerArea";
 import { QuizSentenceArea } from "../components/gamescene/QuizSentenceArea";
 import { randomChar } from "../components/gamescene/CharTool";
-import { Quiz } from "../data/quizzes";
+import { Quiz } from "../components/type/Type";
 
 export type GameSceneProps = {
   setScene: (scene: string) => void;

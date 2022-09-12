@@ -6,14 +6,17 @@ import { StartScene } from "../scenes/Start";
 import { InsiderScene } from "../scenes/Insider";
 import { GameScene } from "../scenes/Game";
 import { ResultScene } from "../scenes/Result";
-import { quizzes, Quiz } from "../data/quizzes";
+import { quizzes } from "../data/quizzes";
+import { Quiz, InsiderIndexDict } from "../components/type/Type";
 
 const Home: NextPage = () => {
-  // Sceneを持たせる
   const [scene, setScene] = useState<string>("start");
   const [pPoint, setPPoint] = useState<number>(0);
   const [qPoint, setQPoint] = useState<number>(0);
   const [quizList, setQuizList] = useState<Quiz[]>([]);
+  const [insiderQuizIndex, setInsiderQuizIndex] = useState<InsiderIndexDict>(
+    {}
+  );
   const questinoNum = 3;
 
   const setQuizeez = () => {
@@ -27,6 +30,10 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     setQuizeez();
+    setInsiderQuizIndex({
+      PlayerP: Math.floor(Math.random() * questinoNum),
+      PlayerQ: Math.floor(Math.random() * questinoNum),
+    });
   }, []);
 
   return (
@@ -38,7 +45,11 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         {scene === "start" && <StartScene setScene={setScene} />}
         {scene === "insider" && (
-          <InsiderScene setScene={setScene} quizList={quizList} />
+          <InsiderScene
+            setScene={setScene}
+            quizList={quizList}
+            insiderQuizIndex={insiderQuizIndex}
+          />
         )}
         {scene === "game" && (
           <GameScene
