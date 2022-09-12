@@ -8,8 +8,10 @@ import { GameScene } from "../scenes/Game";
 import { ResultScene } from "../scenes/Result";
 import { quizzes } from "../data/quizzes";
 import { Quiz, InsiderIndexDict } from "../components/type/Type";
+import { PointOutScene } from "../scenes/PointOut";
 
 const Home: NextPage = () => {
+  const questinoNum = 3;
   const [scene, setScene] = useState<string>("start");
   const [pPoint, setPPoint] = useState<number>(0);
   const [qPoint, setQPoint] = useState<number>(0);
@@ -17,7 +19,6 @@ const Home: NextPage = () => {
   const [insiderQuizIndex, setInsiderQuizIndex] = useState<InsiderIndexDict>(
     {}
   );
-  const questinoNum = 3;
 
   const setQuizeez = () => {
     const max = quizzes.length;
@@ -55,6 +56,15 @@ const Home: NextPage = () => {
           <GameScene
             setScene={setScene}
             quizList={quizList}
+            pPoint={pPoint}
+            qPoint={qPoint}
+            setPPoint={setPPoint}
+            setQPoint={setQPoint}
+          />
+        )}
+        {scene === "pointout" && (
+          <PointOutScene
+            setScene={setScene}
             pPoint={pPoint}
             qPoint={qPoint}
             setPPoint={setPPoint}

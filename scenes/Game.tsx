@@ -121,7 +121,7 @@ export const GameScene: React.FC<GameSceneProps> = ({
 
   useEffect(() => {
     if (quizProgress === questinoNum + 1) {
-      setScene("result");
+      setScene("pointout");
     } else {
       if (quizProgress > 1) {
         console.log(quizProgress - 1);
@@ -201,7 +201,7 @@ export const GameScene: React.FC<GameSceneProps> = ({
       <PlayerArea qPoint={qPoint} pPoint={pPoint} />
 
       <div className="div-center-align">
-        <button onClick={() => setScene("result")}>finish</button>
+        <button onClick={() => setScene("pointout")}>finish</button>
       </div>
     </div>
   );
