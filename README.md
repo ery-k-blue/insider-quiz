@@ -1,3 +1,13 @@
+# 開発中
+1. デザインガン無視、とりあえず動くものを作る
+2. ルール説明ありで、遊べるものを作る  <---今ココ！
+3. 実際に遊んでもらって、問題点等を洗い出す
+4. 3を元に改良＆デザインを整える
+5. ルール説明なしで、遊べるものを作る
+6. Reactらしい書き方ができてるか等のリファクタをしたい（誰かに見てもらいたい）
+
+
+-------------------------------------------------------------------------------------------------------------
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
