@@ -4,6 +4,12 @@ export type Quiz = {
   answer: string;
 };
 
-export type InsiderIndexDict = {
+export type PointoutInsiderIndexType = {
+  // PlayerP, PlayerQ
+  [player: string]: number | null;
+};
+
+export type InsiderQuizIndexType = {
+  // PlayerP, PlayerQ
   [player: string]: number;
 };

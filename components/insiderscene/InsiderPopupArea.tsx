@@ -1,14 +1,14 @@
 import styles from "../../styles/components/insiderscene/PopupArea.module.css";
-import { InsiderIndexDict, Quiz } from "../type/Type";
+import { Quiz } from "../type/Type";
 
-type PopupAreaProps = {
+type InsiderPopupAreaProps = {
   showPopup: string;
   setShowPopup: (s: string) => void;
   pQuiz: Quiz;
   qQuiz: Quiz;
 };
 
-export const PopupArea: React.FC<PopupAreaProps> = ({
+export const InsiderPopupArea: React.FC<InsiderPopupAreaProps> = ({
   showPopup,
   setShowPopup,
   pQuiz,

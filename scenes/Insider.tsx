@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { PopupArea } from "../components/insiderscene/PopupArea";
-import { Quiz, InsiderIndexDict } from "../components/type/Type";
+import { InsiderPopupArea } from "../components/insiderscene/InsiderPopupArea";
+import { Quiz, InsiderQuizIndexType } from "../components/type/Type";
 
 export type InsiderSceneProps = {
   setScene: (scene: string) => void;
   quizList: Array<Quiz>;
-  insiderQuizIndex: InsiderIndexDict;
+  insiderQuizIndex: InsiderQuizIndexType;
 };
 
 export const InsiderScene: React.FC<InsiderSceneProps> = ({
@@ -14,11 +14,10 @@ export const InsiderScene: React.FC<InsiderSceneProps> = ({
   insiderQuizIndex,
 }) => {
   const [showPopup, setShowPopup] = useState("");
-  console.log(insiderQuizIndex);
   return (
     <div>
       {showPopup && (
-        <PopupArea
+        <InsiderPopupArea
           showPopup={showPopup}
           setShowPopup={setShowPopup}
           pQuiz={quizList[insiderQuizIndex["PlayerP"]]}
@@ -34,11 +33,11 @@ export const InsiderScene: React.FC<InsiderSceneProps> = ({
       </p>
 
       <div className="div-center-align">
-        <button onClick={() => setShowPopup("PlayerP")}>
-          PlayerPいんさいだー
-        </button>
         <button onClick={() => setShowPopup("PlayerQ")}>
           PlayerQいんさいだー
+        </button>
+        <button onClick={() => setShowPopup("PlayerP")}>
+          PlayerPいんさいだー
         </button>
       </div>
 

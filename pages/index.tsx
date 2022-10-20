@@ -7,23 +7,30 @@ import { InsiderScene } from "../scenes/Insider";
 import { GameScene } from "../scenes/Game";
 import { ResultScene } from "../scenes/Result";
 import { quizzes } from "../data/quizzes";
-import { Quiz, InsiderIndexDict } from "../components/type/Type";
+import {
+  Quiz,
+  InsiderQuizIndexType,
+  PointoutInsiderIndexType,
+} from "../components/type/Type";
 import { PointOutScene } from "../scenes/PointOut";
 
+export const QuestionNum = 3;
+
 const Home: NextPage = () => {
-  const questinoNum = 3;
   const [scene, setScene] = useState<string>("start");
   const [pPoint, setPPoint] = useState<number>(0);
   const [qPoint, setQPoint] = useState<number>(0);
+  const [answerPlayerList, setAnswerPlayerList] = useState<string[]>([]);
+  const [pointoutInsiderIndex, setPointoutInsiderIndex] =
+    useState<PointoutInsiderIndexType>({ PlayerQ: null, PlayerP: null });
   const [quizList, setQuizList] = useState<Quiz[]>([]);
-  const [insiderQuizIndex, setInsiderQuizIndex] = useState<InsiderIndexDict>(
-    {}
-  );
+  const [insiderQuizIndex, setInsiderQuizIndex] =
+    useState<InsiderQuizIndexType>({});
 
   const setQuizeez = () => {
     const max = quizzes.length;
     let _ql: Array<Quiz> = [];
-    for (let i = 0; i < questinoNum; i++) {
+    for (let i = 0; i < QuestionNum; i++) {
       _ql.push(quizzes[Math.floor(Math.random() * max)]);
     }
     setQuizList(_ql);
@@ -32,8 +39,8 @@ const Home: NextPage = () => {
   useEffect(() => {
     setQuizeez();
     setInsiderQuizIndex({
-      PlayerP: Math.floor(Math.random() * questinoNum),
-      PlayerQ: Math.floor(Math.random() * questinoNum),
+      PlayerP: Math.floor(Math.random() * QuestionNum),
+      PlayerQ: Math.floor(Math.random() * QuestionNum),
     });
   }, []);
 
@@ -56,6 +63,8 @@ const Home: NextPage = () => {
           <GameScene
             setScene={setScene}
             quizList={quizList}
+            answerPlayerList={answerPlayerList}
+            setAnswerPlayerList={setAnswerPlayerList}
             pPoint={pPoint}
             qPoint={qPoint}
             setPPoint={setPPoint}
@@ -65,6 +74,11 @@ const Home: NextPage = () => {
         {scene === "pointout" && (
           <PointOutScene
             setScene={setScene}
+            quizList={quizList}
+            answerPlayerList={answerPlayerList}
+            insiderQuizIndex={insiderQuizIndex}
+            pointoutInsiderIndex={pointoutInsiderIndex}
+            setPointoutInsiderIndex={setPointoutInsiderIndex}
             pPoint={pPoint}
             qPoint={qPoint}
             setPPoint={setPPoint}

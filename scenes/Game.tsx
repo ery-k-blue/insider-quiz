@@ -3,10 +3,13 @@ import { PlayerArea } from "../components/gamescene/PlayerArea";
 import { QuizSentenceArea } from "../components/gamescene/QuizSentenceArea";
 import { randomChar } from "../components/gamescene/CharTool";
 import { Quiz } from "../components/type/Type";
+import { QuestionNum } from "../pages";
 
 export type GameSceneProps = {
   setScene: (scene: string) => void;
-  quizList: Array<Quiz>;
+  quizList: Quiz[];
+  answerPlayerList: string[];
+  setAnswerPlayerList: (answerPlayerList: string[]) => void;
   pPoint: number;
   qPoint: number;
   setPPoint: (pPoint: number) => void;
@@ -16,12 +19,13 @@ export type GameSceneProps = {
 export const GameScene: React.FC<GameSceneProps> = ({
   setScene,
   quizList,
+  answerPlayerList,
+  setAnswerPlayerList,
   pPoint,
   qPoint,
   setPPoint,
   setQPoint,
 }) => {
-  const questinoNum = 3;
   const [quizProgress, setQuizProgress] = useState<number>(1);
 
   const [inputCheck, setinputCheck] = useState<string>("");
@@ -69,8 +73,10 @@ export const GameScene: React.FC<GameSceneProps> = ({
   const seikaiProcess = () => {
     if (righrToAnswer === "Q") {
       setQPoint(qPoint + 1);
+      setAnswerPlayerList([...answerPlayerList, "Q"]);
     } else if (righrToAnswer === "P") {
       setPPoint(pPoint + 1);
+      setAnswerPlayerList([...answerPlayerList, "P"]);
     }
 
     setSeikaiflag(true);
@@ -120,7 +126,7 @@ export const GameScene: React.FC<GameSceneProps> = ({
   }, [quizList]);
 
   useEffect(() => {
-    if (quizProgress === questinoNum + 1) {
+    if (quizProgress === QuestionNum + 1) {
       setScene("pointout");
     } else {
       if (quizProgress > 1) {
