@@ -1,4 +1,9 @@
 import React from "react";
+import { PlayerArea } from "../components/gamescene/PlayerArea";
+import {
+  InsiderQuizIndexType,
+  PointoutInsiderIndexType,
+} from "../components/type/Type";
 
 export type ResultSceneProps = {
   setScene: (scene: string) => void;
@@ -6,6 +11,8 @@ export type ResultSceneProps = {
   qPoint: number;
   setPPoint: (pPoint: number) => void;
   setQPoint: (qPoint: number) => void;
+  insiderQuizIndex: InsiderQuizIndexType;
+  pointoutInsiderIndex: PointoutInsiderIndexType;
 };
 
 export const ResultScene: React.FC<ResultSceneProps> = ({
@@ -14,6 +21,8 @@ export const ResultScene: React.FC<ResultSceneProps> = ({
   qPoint,
   setPPoint,
   setQPoint,
+  insiderQuizIndex,
+  pointoutInsiderIndex,
 }) => {
   const resultScreen = () => {
     if (pPoint > qPoint) {
@@ -33,16 +42,37 @@ export const ResultScene: React.FC<ResultSceneProps> = ({
     }
   };
 
+  const resultPointOut = () => {
+    return (
+      <div className="player-area">
+        <div className="q-area">
+          {pointoutInsiderIndex["PlayerQ"] == insiderQuizIndex["PlayerP"] ? (
+            <h1>指摘成功</h1>
+          ) : (
+            <h1>指摘失敗</h1>
+          )}
+        </div>
+        <div className="p-area">
+          {pointoutInsiderIndex["PlayerP"] == insiderQuizIndex["PlayerQ"] ? (
+            <h1>指摘成功</h1>
+          ) : (
+            <h1>指摘失敗</h1>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   const finishGame = () => {
-    setScene("start");
-    setPPoint(0);
-    setQPoint(0);
+    window.location.reload();
   };
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <h1>結果発表</h1>
       {resultScreen()}
+      <PlayerArea qPoint={qPoint} pPoint={pPoint} />
+      {resultPointOut()}
       <div className="div-center-align">
         <button onClick={finishGame}>ok</button>
       </div>

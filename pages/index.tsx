@@ -98,6 +98,8 @@ const Home: NextPage = () => {
             qPoint={qPoint}
             setPPoint={setPPoint}
             setQPoint={setQPoint}
+            insiderQuizIndex={insiderQuizIndex}
+            pointoutInsiderIndex={pointoutInsiderIndex}
           />
         )}
       </main>
