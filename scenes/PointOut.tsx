@@ -44,8 +44,6 @@ export const PointOutScene: React.FC<PointOutSceneProps> = ({
     }
   }, [pushablePBtn, pushableQBtn]);
 
-  useEffect(() => {}, [pointoutInsiderIndex]);
-
   return (
     <div>
       <h1>
