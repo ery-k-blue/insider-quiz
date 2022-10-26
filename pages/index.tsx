@@ -33,12 +33,24 @@ const Home: NextPage = () => {
   const [insiderQuizIndex, setInsiderQuizIndex] =
     useState<InsiderQuizIndexType>({});
 
-  const setQuizeez = () => {
-    const max = quizData.length;
-    let _ql: Array<Quiz> = [];
-    for (let i = 0; i < QuestionNum; i++) {
-      _ql.push(quizData[Math.floor(Math.random() * max)]);
+  const makeRandNumArr = (len: number, max: number) => {
+    let randArr: Array<number> = [];
+    while (randArr.length < len) {
+      let n = Math.floor(Math.random() * max);
+      if (!randArr.includes(n)) {
+        randArr.push(n);
+      }
     }
+    return randArr;
+  };
+
+  const setQuizeez = () => {
+    // 被りなしの整数配列を作成
+    let randArr = makeRandNumArr(QuestionNum, quizData.length);
+    let _ql: Array<Quiz> = [];
+    _ql = randArr.map((value) => {
+      return quizData[value];
+    });
     setQuizList(_ql);
   };
 
