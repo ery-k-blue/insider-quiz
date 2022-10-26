@@ -5,7 +5,7 @@ const katakanaList =
 const alphabetList = "abcdefghijklmnopqrstuvwxyz";
 const suuziList = "0123456789";
 
-export const randomChar = (char: any) => {
+export const randomChar = (char: string) => {
   const arr = [char];
   let selectedList = "";
 
@@ -24,6 +24,7 @@ export const randomChar = (char: any) => {
     arr.push(selectedList[_random]);
   }
 
+  // 必ず先頭に回答が来るので、シャッフル
   return arr.sort(() => Math.random() - 0.5);
 };
 

@@ -44,7 +44,8 @@ export const GameScene: React.FC<GameSceneProps> = ({
   const [startAnimation, setStartAnimation] = useState<Boolean>(true);
   const [pauseAnimation, setPauseAnimation] = useState<Boolean>(false);
 
-  const makeChoices = (answer: any) => {
+  // answerを元に4択の選択肢を作成
+  const makeChoices = (answer: string) => {
     let _arr = answer.split("");
     let _carr = [];
     console.log(answer);
@@ -56,6 +57,7 @@ export const GameScene: React.FC<GameSceneProps> = ({
     setChoicesArray(_carr);
   };
 
+  // 5.入力とanwerの確認を行う。
   const selectedChoices = (e: MouseEvent<HTMLButtonElement>) => {
     if (e.currentTarget.value === answer[inputCharCount]) {
       let _answer = inputAnswer + e.currentTarget.value;
@@ -117,6 +119,7 @@ export const GameScene: React.FC<GameSceneProps> = ({
     }
   };
 
+  // 1.クイズリストから、1問目の問題と答えを引っ張ってくる（QuizSentenceAreaで問題文の表示方法を調整）
   useEffect(() => {
     if (quizList.length !== 0) {
       console.log(quizList);
@@ -125,6 +128,25 @@ export const GameScene: React.FC<GameSceneProps> = ({
     }
   }, [quizList]);
 
+  // 2.回答時の4択を作成
+  useEffect(() => {
+    if (answer !== "") {
+      makeChoices(answer);
+    }
+  }, [answer]);
+
+  // 3.問題が流れ始めるので、回答ボタンを押す。
+  // 4.RTAflagが立ち、選択肢が出現するので、回答。
+  useEffect(() => {
+    if (rTAflag) {
+      document.addEventListener("keydown", keydownEvent, false);
+      return () => {
+        document.removeEventListener("keydown", keydownEvent, false);
+      };
+    }
+  }, [keydownEvent]);
+
+  // 6.各問題終了後の処理
   useEffect(() => {
     if (quizProgress === QuestionNum + 1) {
       setScene("pointout");
@@ -136,21 +158,6 @@ export const GameScene: React.FC<GameSceneProps> = ({
       }
     }
   }, [quizProgress]);
-
-  useEffect(() => {
-    if (answer !== "") {
-      makeChoices(answer);
-    }
-  }, [answer]);
-
-  useEffect(() => {
-    if (rTAflag) {
-      document.addEventListener("keydown", keydownEvent, false);
-      return () => {
-        document.removeEventListener("keydown", keydownEvent, false);
-      };
-    }
-  }, [keydownEvent]);
 
   return (
     <div style={{ width: "100%" }}>

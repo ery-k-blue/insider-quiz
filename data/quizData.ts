@@ -1,6 +1,6 @@
 import { Quiz } from "../components/type/Type";
 
-export const quizzes: Array<Quiz> = [
+export const quizData: Array<Quiz> = [
   {
     id: 1,
     question:
