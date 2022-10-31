@@ -6,6 +6,7 @@
 5. ルール説明なしで、遊べるものを作る
 6. Reactらしい書き方ができてるか等のリファクタをしたい（誰かに見てもらいたい）
 
+React×TSでモノ創りたいなと思ってた時に、霜降りチューブで取り上げられてたインサイダークイズが友達とできると良いなと思ったので、勉強がてら開発中です
 
 -------------------------------------------------------------------------------------------------------------
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
